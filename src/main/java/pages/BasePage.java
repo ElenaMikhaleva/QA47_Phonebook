@@ -2,7 +2,7 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 
-public class BasePage {
+public abstract class BasePage {
     // родительский класс для всех классов страниц
     static WebDriver driver;
 
