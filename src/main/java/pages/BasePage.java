@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public abstract class BasePage {
     // родительский класс для всех классов страниц
@@ -18,4 +19,9 @@ public abstract class BasePage {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean isElementPresent (WebElement element) {
+        return element.isDisplayed();
+    }
+
 }

@@ -6,25 +6,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class HomePage extends BasePage {
-
-    public HomePage(WebDriver driver) {
+public class ContactsPage extends BasePage{
+    public ContactsPage(WebDriver driver) {
         setDriver(driver);
-        driver.get("https://telranedu.web.app/home");
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
     }
 
-    @FindBy(css = "a[href='/login']")
-    WebElement btnHeaderLogin;
+    @FindBy(css = "[href='/contacts']")
+    WebElement btnHeaderContacts;
 
-    @FindBy(xpath = "//div[@class='login_login__3EHKB']/div")
-    WebElement errorMessageLogin;
-
-    public void clickBtnHeaderLogin() {
-        btnHeaderLogin.click();
+    public boolean isContactsPresent() {
+        return isElementPresent(btnHeaderContacts);
     }
-
-
 }
-
-
