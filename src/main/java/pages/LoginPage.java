@@ -28,13 +28,22 @@ public class LoginPage extends BasePage {
     @FindBy(css = "button[name='login']")
     WebElement btnLogIn;
 
+    @FindBy(css = "button[name='registration']")
+    WebElement btnReg;
+
     @FindBy(xpath = "//div[@class='login_login__3EHKB']/div")
     WebElement errorMessage;
 
     public void typeLoginForm(User user) {
-    inputEmail.sendKeys(user.getUsername());
-    inputPassword.sendKeys(user.getPassword());
-    btnLogIn.click();
+        inputEmail.sendKeys(user.getUsername());
+        inputPassword.sendKeys(user.getPassword());
+        btnLogIn.click();
+    }
+
+    public void typeRegForm(User user) {
+        inputEmail.sendKeys(user.getUsername());
+        inputPassword.sendKeys(user.getPassword());
+        btnReg.click();
     }
 
     public void closeAlert() {
@@ -47,6 +56,5 @@ public class LoginPage extends BasePage {
 
     public boolean isErrorMessagePresent(String text) {
         return errorMessage.getText().contains(text);
-
     }
 }
