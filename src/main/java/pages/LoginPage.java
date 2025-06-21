@@ -54,7 +54,14 @@ public class LoginPage extends BasePage {
         // кликает на кнопку ok в алерте, чтобы закрыть его
     }
 
+    public String closeAlertReturnText() {
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.alertIsPresent());
+        String text = alert.getText();
+        alert.accept();
+        return text;
+    }
+
     public boolean isErrorMessagePresent(String text) {
-        return errorMessage.getText().contains(text);
+        return isTextInElementPresent(errorMessage, text);
     }
 }

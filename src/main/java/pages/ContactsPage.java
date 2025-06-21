@@ -15,7 +15,21 @@ public class ContactsPage extends BasePage{
     @FindBy(css = "[href='/contacts']")
     WebElement btnHeaderContacts;
 
+    @FindBy(xpath = "//button[text()='Sign Out']")
+    WebElement btnHeaderSignOut;
+
+    @FindBy(className = "contact-page_message__2qafk")
+    WebElement messageNoContacts;
+
     public boolean isContactsPresent() {
         return isElementPresent(btnHeaderContacts);
+    }
+
+    public boolean isNoContactsPresent(String text) {
+        return isTextInElementPresent(messageNoContacts, text);
+    }
+
+    public void clickSignOut() {
+        btnHeaderSignOut.click();
     }
 }
