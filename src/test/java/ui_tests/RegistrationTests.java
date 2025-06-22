@@ -1,6 +1,7 @@
 package ui_tests;
 
 import dto.User;
+import dto.UserLombok;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -26,7 +27,10 @@ public class RegistrationTests extends ApplicationManager {
 
     @Test
     public void regPositiveTest() {
-        User user = new User(generateEmail(5), "Password$1");
+        UserLombok user = UserLombok.builder()
+                .username(generateEmail(5))
+                .password("Password$1")
+                .build();
         goToRegistrationPage();
         loginPage.typeRegForm(user);
         ContactsPage contactsPage = new ContactsPage(getDriver());
@@ -35,7 +39,10 @@ public class RegistrationTests extends ApplicationManager {
 
     @Test
     public void regNegativeTest_invalidUsername() {
-        User user = new User("elena12gmail.com", "Password$1");
+        UserLombok user = UserLombok.builder()
+                .username("elena12gmail.com")
+                .password("Password$1")
+                .build();
         goToRegistrationPage();
         loginPage.typeRegForm(user);
         Assert.assertTrue(loginPage.closeAlertReturnText().contains("Wrong email or password format"));
@@ -43,7 +50,10 @@ public class RegistrationTests extends ApplicationManager {
 
     @Test
     public void regNegativeTest_duplicateUsername() {
-        User user = new User(generateEmail(5), "Password$1");
+        UserLombok user = UserLombok.builder()
+                .username(generateEmail(5))
+                .password("Password$1")
+                .build();
         goToRegistrationPage();
         loginPage.typeRegForm(user);
         ContactsPage contactsPage = new ContactsPage(getDriver());
@@ -59,7 +69,10 @@ public class RegistrationTests extends ApplicationManager {
 
     @Test
     public void regNegativeTest_invalidPassword() {
-        User user = new User("elena123@gmail.com", "Password");
+        UserLombok user = UserLombok.builder()
+                .username("elena123@gmail.com")
+                .password("Password")
+                .build();
         goToRegistrationPage();
         loginPage.typeRegForm(user);
         Assert.assertTrue(loginPage.closeAlertReturnText().contains("Wrong email or password format"));
