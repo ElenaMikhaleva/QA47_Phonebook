@@ -1,0 +1,56 @@
+[33mcommit be2d48265c9951a82aa32bc22313daaef9f40be4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Mon Jun 23 22:40:47 2025 +0300
+
+    added AddNewContactsTests.java
+
+[33mcommit c90adf29606725cdc3861631bf73c5f3fdf69b2d[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Sun Jun 22 17:55:51 2025 +0300
+
+    created UserLombok.java
+
+[33mcommit d765689e8564d724acba08ff3576a481a7a75964[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Sat Jun 21 21:50:55 2025 +0300
+
+    improved RegistrationTests.java
+
+[33mcommit 1117149abbeb1f4cbb13dc67c3162645e7a9a075[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Fri Jun 20 15:05:02 2025 +0300
+
+    improved registration tests with random generator
+
+[33mcommit 09737ecca5e28bc182405e8380ad513a69ae1163[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Fri Jun 20 14:55:24 2025 +0300
+
+    added registration tests
+
+[33mcommit b5eefad4c9dcf58f6cae4ebf4be2838b51ce37dd[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Thu Jun 19 23:59:56 2025 +0300
+
+    added Objects
+    added asserts
+    added negative test for login, invalid password
+
+[33mcommit 918a76e7239c7a61de00ab6333dd3f8f9c859d6f[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Wed Jun 18 23:25:38 2025 +0300
+
+    created HomeTests.java
+
+[33mcommit d71e52901d49859b0ff48ff6944d7c2b52efef40[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Tue Jun 17 15:46:33 2025 +0300
+
+    created all the files
+    created loginPositiveTest
+
+[33mcommit ea9393a09efd44d35699d042a6e4482674c1d439[m
+Author: ElenaMikhaleva <elena.mikhaleva@gmail.com>
+Date:   Tue Jun 17 15:45:47 2025 +0300
+
+    Initial commit

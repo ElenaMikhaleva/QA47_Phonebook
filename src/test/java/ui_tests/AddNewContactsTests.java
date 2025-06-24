@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import pages.*;
 import utils.HeaderMenuItems;
 
-import static pages.BasePage.clickHeaderButtons;
+import static pages.BasePage.clickHeaderItem;
 import static utils.RandomUtils.generateEmail;
 import static utils.RandomUtils.generateString;
 
@@ -23,9 +23,9 @@ public class AddNewContactsTests extends ApplicationManager {
     public void login() {
         User user = new User("pippin@mail.com", "WhatAbout#2Breakfast");
         homePage = new HomePage(getDriver());
-        loginPage = clickHeaderButtons(HeaderMenuItems.LOGIN);
+        loginPage = clickHeaderItem(HeaderMenuItems.LOGIN);
         loginPage.typeLoginForm(user);
-        addPage = clickHeaderButtons(HeaderMenuItems.ADD);
+        addPage = clickHeaderItem(HeaderMenuItems.ADD);
     }
 
     @Test

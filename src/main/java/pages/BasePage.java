@@ -30,14 +30,19 @@ public abstract class BasePage {
         return element.getText().contains(text);
     }
 
-    public static <T extends BasePage> T clickHeaderButtons(HeaderMenuItems headerMenuItem) {
+    public static <T extends BasePage> T clickHeaderItem(HeaderMenuItems headerMenuItem) {
         pause(3);
         WebElement element = driver.findElement(By.xpath(headerMenuItem.getLocator()));
         element.click();
         switch(headerMenuItem) {
+            case HOME -> { return (T) new HomePage(driver); }
+            case ABOUT -> { return (T) new AboutPage(driver); }
+            case CONTACTS -> { return (T) new ContactsPage(driver); }
             case ADD -> { return (T) new AddPage(driver); }
             case LOGIN -> { return (T) new LoginPage(driver); }
+            case SIGN_OUT -> { return (T) new LoginPage(driver); }
             default -> throw new IllegalArgumentException("Invalid parameter headerMenuItem");
+
         }
     }
 
