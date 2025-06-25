@@ -6,7 +6,8 @@ public enum HeaderMenuItems {
     CONTACTS("//a[text()='CONTACTS']"),
     ADD("//a[text()='ADD']"),
     LOGIN("//a[text()='LOGIN']"),
-    SIGN_OUT("//button[text()='Sign Out']");
+    SIGN_OUT("//button[text()='Sign Out']")
+    ;
 
     private final String locator;
 
