@@ -3,7 +3,6 @@ package ui_tests;
 import dto.Contact;
 import dto.User;
 import manager.ApplicationManager;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -45,7 +44,7 @@ public class AddNewContactsTests extends ApplicationManager {
                 .build();
         addPage.typeAddNewContactForm(contact);
         int sizeAfterAdd = contactsPage.getContactsListSize();
-        System.out.println("list size: " + sizeBeforeAdd + " --> " + sizeAfterAdd);
+        System.out.println("addContactPositiveTest: list size: " + sizeBeforeAdd + " --> " + sizeAfterAdd);
         boolean validationSize = sizeAfterAdd == sizeBeforeAdd+1;
         softAssert.assertTrue(validationSize);
         if (validationSize) {
