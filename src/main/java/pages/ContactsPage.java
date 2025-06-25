@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -22,6 +23,30 @@ public class ContactsPage extends BasePage{
     WebElement messageNoContacts;
     @FindBy(xpath = "//div[@class='contact-item_card__2SOIM']")
     List<WebElement> contactsList;
+    @FindBy(xpath = "(//div[@class='contact-item_card__2SOIM'])[last()]")
+    WebElement addedContact;
+    @FindBy(css = ".contact-item-detailed_card__50dTS")
+    WebElement contactCard;
+
+    public boolean validateAddedContact(String name, String lastName, String phone, String email, String address, String descr) {
+        addedContact.click();
+        String[] card = contactCard.getText().split("\n");
+        boolean resultName = card[0].equals(name + " " + lastName);
+        boolean resultPhone = card[1].equals(phone);
+        boolean resultEmail = card[2].equals(email);
+        boolean resultAddress = card[3].equals(address);
+        boolean resultDescr = card[4].equals("Description: " + descr);
+        if (resultName && resultAddress && resultEmail && resultPhone && resultDescr)
+            return true;
+        else {
+            if (resultName == false) System.out.println("Name EXPECTED " + name + " " + lastName + " RESULT " + card[0]);
+            if (resultPhone == false) System.out.println("Phone EXPECTED " + phone + " RESULT " + card[1]);
+            if (resultEmail == false) System.out.println("Email EXPECTED " + email + " RESULT " + card[2]);
+            if (resultAddress == false) System.out.println("Address EXPECTED " + address + " RESULT " + card[3]);
+            if (resultDescr == false) System.out.println("Descr EXPECTED " + descr + " RESULT " + card[4]);
+            return false;
+        }
+    }
 
     public boolean isContactsPresent() {
         return isElementPresent(btnHeaderContacts);

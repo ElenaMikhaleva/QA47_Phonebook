@@ -33,7 +33,7 @@ public class AddNewContactsTests extends ApplicationManager {
     }
 
     @Test
-    public void addContactPositiveTest() {
+    public void addContact_PositiveTest() {
         SoftAssert softAssert = new SoftAssert();
         Contact contact = Contact.builder()
                 .name(generateString(5))
@@ -44,11 +44,30 @@ public class AddNewContactsTests extends ApplicationManager {
                 .description(generateString(15))
                 .build();
         addPage.typeAddNewContactForm(contact);
-        int sizeAfterAdd = contactsPage.getContactsListSize();
-        System.out.println("addContactPositiveTest: list size: " + sizeBeforeAdd + " --> " + sizeAfterAdd);
+        // validation card number in the list has changed
+//        int sizeAfterAdd = contactsPage.getContactsListSize();
+//        System.out.println("addContactPositiveTest: list size: " + sizeBeforeAdd + " --> " + sizeAfterAdd);
 //        boolean validationSize = sizeAfterAdd == sizeBeforeAdd+1;
 //        softAssert.assertTrue(validationSize);
-        boolean validation = contactsPage.validateContactNamePhone(contact.getName(), contact.getPhone());
+        // validation name and phone in preview were added right
+//        boolean validation = contactsPage.validateContactNamePhone(contact.getName(), contact.getPhone());
+        boolean validation = contactsPage.validateAddedContact(contact.getName(), contact.getLastName(), contact.getPhone(),
+                contact.getEmail(), contact.getAddress(), contact.getDescription());
         Assert.assertTrue(validation);
+    }
+
+    @Test
+    public void addContact_NegativeTest_invalidPhone() {
+        Contact contact = Contact.builder()
+                .name(generateString(5))
+                .lastName(generateString(10))
+                .phone(generatePhone(9))
+                .email(generateEmail(5))
+                .address("Earth " + generateString(5))
+                .description(generateString(15))
+                .build();
+        addPage.typeAddNewContactForm(contact);
+        boolean validation = addPage.returnAlertText().contains("Phone not valid");
+        Assert.assertTrue(validation, "addContact_NegativeTest_invalidPhone");
     }
 }
