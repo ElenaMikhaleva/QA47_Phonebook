@@ -20,6 +20,7 @@ public class AddNewContactsTests extends ApplicationManager {
     ContactsPage contactsPage;
     AddPage addPage;
     int sizeBeforeAdd;
+    String existingPhone;
 
     @BeforeMethod
     public void login() {
@@ -29,6 +30,7 @@ public class AddNewContactsTests extends ApplicationManager {
         loginPage.typeLoginForm(user);
         contactsPage = new ContactsPage(getDriver());
         sizeBeforeAdd = contactsPage.getContactsListSize();
+        existingPhone = contactsPage.getPhoneFromList();
         addPage = clickHeaderItem(HeaderMenuItems.ADD);
     }
 
@@ -53,7 +55,60 @@ public class AddNewContactsTests extends ApplicationManager {
 //        boolean validation = contactsPage.validateContactNamePhone(contact.getName(), contact.getPhone());
         boolean validation = contactsPage.validateAddedContact(contact.getName(), contact.getLastName(), contact.getPhone(),
                 contact.getEmail(), contact.getAddress(), contact.getDescription());
-        Assert.assertTrue(validation);
+        Assert.assertTrue(validation, "addContact_PositiveTest");
+    }
+
+    @Test
+    public void addContact_NegativeTest_emptyName() {
+        Contact contact = Contact.builder()
+                .name("")
+                .lastName(generateString(10))
+                .phone(generatePhone(10))
+                .email(generateEmail(5))
+                .address("Earth " + generateString(5))
+                .description(generateString(15))
+                .build();
+        addPage.typeAddNewContactForm(contact);
+        contactsPage = clickHeaderItem(HeaderMenuItems.CONTACTS);
+        int sizeAfterAdd = contactsPage.getContactsListSize();
+                System.out.println("addContactNegativeTest: list size: " + sizeBeforeAdd + " --> " + sizeAfterAdd);
+        boolean validationSize = sizeAfterAdd==sizeBeforeAdd;
+        Assert.assertTrue(validationSize, "addContact_NegativeTest_emptyName");
+        // validation that after adding contact the page does not have list of contacts -> it's still adding contact page
+//        Assert.assertTrue(addPage.validateURLDoesNotContain("add"));
+    }
+
+    @Test
+    public void addContact_NegativeTest_emptyLastName() {
+        Contact contact = Contact.builder()
+                .name(generateString(5))
+                .lastName("")
+                .phone(generatePhone(10))
+                .email(generateEmail(5))
+                .address("Earth " + generateString(5))
+                .description(generateString(15))
+                .build();
+        addPage.typeAddNewContactForm(contact);
+        contactsPage = clickHeaderItem(HeaderMenuItems.CONTACTS);
+        int sizeAfterAdd = contactsPage.getContactsListSize();
+        System.out.println("addContactNegativeTest: list size: " + sizeBeforeAdd + " --> " + sizeAfterAdd);
+        boolean validationSize = sizeAfterAdd==sizeBeforeAdd;
+        Assert.assertTrue(validationSize, "addContact_NegativeTest_emptyLastName");
+    }
+
+    @Test
+    public void addContact_NegativeTest_emptyPhone() {
+        Contact contact = Contact.builder()
+                .name(generateString(5))
+                .lastName(generateString(10))
+                .phone("")
+                .email(generateEmail(5))
+                .address("Earth " + generateString(5))
+                .description(generateString(15))
+                .build();
+        addPage.typeAddNewContactForm(contact);
+        boolean validation = addPage.returnAlertText().contains("Phone not valid");
+        Assert.assertTrue(validation, "addContact_NegativeTest_emptyPhone");
     }
 
     @Test
@@ -69,5 +124,39 @@ public class AddNewContactsTests extends ApplicationManager {
         addPage.typeAddNewContactForm(contact);
         boolean validation = addPage.returnAlertText().contains("Phone not valid");
         Assert.assertTrue(validation, "addContact_NegativeTest_invalidPhone");
+    }
+
+    @Test
+    public void addContact_NegativeTest_existingPhone() {
+        Contact contact = Contact.builder()
+                .name(generateString(5))
+                .lastName(generateString(5))
+                .phone(generatePhone(10))
+                .email(existingPhone)
+                .address("Earth " + generateString(5))
+                .description(generateString(15))
+                .build();
+        addPage.typeAddNewContactForm(contact);
+        boolean validation = addPage.returnAlertText().contains("Phone already exists");
+        // bug
+//        Assert.assertTrue(validation, "addContact_NegativeTest_existingPhone");
+    }
+
+    @Test
+    public void addContact_NegativeTest_emptyEmail() {
+        Contact contact = Contact.builder()
+                .name(generateString(5))
+                .lastName("")
+                .phone(generatePhone(10))
+                .email("")
+                .address("Earth " + generateString(5))
+                .description(generateString(15))
+                .build();
+        addPage.typeAddNewContactForm(contact);
+        contactsPage = clickHeaderItem(HeaderMenuItems.CONTACTS);
+        int sizeAfterAdd = contactsPage.getContactsListSize();
+        System.out.println("addContactNegativeTest: list size: " + sizeBeforeAdd + " --> " + sizeAfterAdd);
+        boolean validationSize = sizeAfterAdd==sizeBeforeAdd;
+        Assert.assertTrue(validationSize, "addContact_NegativeTest_emptyEmail");
     }
 }

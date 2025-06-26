@@ -70,4 +70,14 @@ public class ContactsPage extends BasePage{
         }
         return false;
     }
+
+    public String getPhoneFromList() {
+        if (contactsList.isEmpty()) {
+            return contactsList.get(0).getText().split("\n")[1];
+        }
+        else {
+            System.out.println("getPhoneFromList: Contact list is empty");
+            return null;
+        }
+    }
 }

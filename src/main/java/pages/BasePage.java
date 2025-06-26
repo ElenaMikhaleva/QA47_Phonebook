@@ -46,4 +46,8 @@ public abstract class BasePage {
             default -> throw new IllegalArgumentException("Invalid parameter headerMenuItem");
         }
     }
+
+    public boolean validateURLDoesNotContain(String str) {
+        return(new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.not(ExpectedConditions.urlContains(str))));
+    }
 }
