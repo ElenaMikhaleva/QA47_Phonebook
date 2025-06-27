@@ -18,7 +18,7 @@ public class ApplicationManager {
         return driver;
     }
 
-    Logger logger = LoggerFactory.getLogger(ApplicationManager.class);
+    public Logger logger = LoggerFactory.getLogger(ApplicationManager.class);
 
     @BeforeMethod
     public void setup() {

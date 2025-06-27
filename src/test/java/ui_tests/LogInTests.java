@@ -9,6 +9,7 @@ import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 
+import java.lang.reflect.Method;
 import java.util.Random;
 
 import static utils.RandomUtils.generateEmail;
@@ -27,8 +28,10 @@ public class LogInTests extends ApplicationManager {
     }
 
     @Test
-    public void loginPositiveTest() {
+    public void loginPositiveTest(Method method) {
+        logger.info("start method " + method.getName());
         User user = new User("elenam@gmail.com", "Password$1");
+        logger.info("test data ------> " + user.toString());
         goToLogInPage();
         loginPage.typeLoginForm(user);
         ContactsPage contactsPage = new ContactsPage(getDriver());
