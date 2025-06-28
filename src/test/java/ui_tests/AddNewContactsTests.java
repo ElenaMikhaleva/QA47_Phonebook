@@ -5,13 +5,17 @@ import dto.User;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.*;
 import utils.HeaderMenuItems;
+import utils.TestNGListener;
 
 import static pages.BasePage.clickHeaderItem;
 import static utils.RandomUtils.*;
+
+@Listeners(TestNGListener.class)
 
 public class AddNewContactsTests extends ApplicationManager {
 
