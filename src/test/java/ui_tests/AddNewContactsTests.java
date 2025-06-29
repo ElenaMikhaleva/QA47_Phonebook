@@ -1,5 +1,6 @@
 package ui_tests;
 
+import data_providers.ContactDP;
 import dto.Contact;
 import dto.User;
 import manager.ApplicationManager;
@@ -13,6 +14,7 @@ import utils.HeaderMenuItems;
 import utils.TestNGListener;
 
 import static pages.BasePage.clickHeaderItem;
+import static utils.PropertiesReader.getProperty;
 import static utils.RandomUtils.*;
 
 @Listeners(TestNGListener.class)
@@ -28,7 +30,8 @@ public class AddNewContactsTests extends ApplicationManager {
 
     @BeforeMethod
     public void login() {
-        User user = new User("pippin@mail.com", "WhatAbout#2Breakfast");
+//        User user = new User("pippin@mail.com", "WhatAbout#2Breakfast");
+        User user = new User(getProperty("login.properties", "email"), getProperty("login.properties", "password"));
         homePage = new HomePage(getDriver());
         loginPage = clickHeaderItem(HeaderMenuItems.LOGIN);
         loginPage.typeLoginForm(user);
@@ -57,6 +60,14 @@ public class AddNewContactsTests extends ApplicationManager {
 //        softAssert.assertTrue(validationSize);
         // validation name and phone in preview were added right
 //        boolean validation = contactsPage.validateContactNamePhone(contact.getName(), contact.getPhone());
+        boolean validation = contactsPage.validateAddedContact(contact.getName(), contact.getLastName(), contact.getPhone(),
+                contact.getEmail(), contact.getAddress(), contact.getDescription());
+        Assert.assertTrue(validation, "addContact_PositiveTest");
+    }
+
+    @Test(dataProvider = "dataProviderContactsFile", dataProviderClass = ContactDP.class)
+    public void addContactDP_PositiveTest(Contact contact) {
+        addPage.typeAddNewContactForm(contact);
         boolean validation = contactsPage.validateAddedContact(contact.getName(), contact.getLastName(), contact.getPhone(),
                 contact.getEmail(), contact.getAddress(), contact.getDescription());
         Assert.assertTrue(validation, "addContact_PositiveTest");

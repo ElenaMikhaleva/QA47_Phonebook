@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.RetryAnalyzer;
 import utils.TestNGListener;
 
 import static utils.RandomUtils.generateEmail;
@@ -28,7 +29,7 @@ public class RegistrationTests extends ApplicationManager {
         // @BeforeMethod(ApplicationManager -> @BeforeMethod(RegistrationTests) -> @Test -> @AfterMethod(RegistrationTests) -> @ApplicationManager
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void regPositiveTest() {
         UserLombok user = UserLombok.builder()
                 .username(generateEmail(5))
@@ -40,7 +41,7 @@ public class RegistrationTests extends ApplicationManager {
         Assert.assertTrue(contactsPage.isNoContactsPresent("No Contacts here!"));
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void regNegativeTest_invalidUsername() {
         UserLombok user = UserLombok.builder()
                 .username("elena12gmail.com")
