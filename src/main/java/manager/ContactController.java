@@ -6,7 +6,7 @@ import dto.User;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeClass;
 import utils.BaseAPI;
 
 import static utils.PropertiesReader.*;
@@ -26,7 +26,7 @@ public class ContactController implements BaseAPI {
 
     protected TokenDto tokenDto;
 
-    @BeforeSuite
+    @BeforeClass
     public void login() {
         User user = new User(getProperty("login.properties", "email"), getProperty("login.properties", "password"));
         Response response = new AuthenticationController().requestRegLogin(user, LOGIN_URL);
@@ -37,7 +37,7 @@ public class ContactController implements BaseAPI {
         }
     }
 
-    protected Response addNewContactRequest(Contact contact) {
+    protected Response addNewContactRequest(Contact contact, TokenDto tokenDto) {
         return given()
                 .body(contact)
                 .baseUri(getProperty("login.properties", "baseUri"))
@@ -46,5 +46,15 @@ public class ContactController implements BaseAPI {
                 .header("Authorization", tokenDto.getToken())
                 .post(ADD_NEW_CONTACT_URL)
                 .thenReturn();
+    }
+
+    public Response getAllContacts() {
+        return given()
+                .baseUri(getProperty("login.properties", "baseUri"))
+                .accept(ContentType.JSON)
+                .header("Authorization", tokenDto.getToken())
+                .get(ADD_NEW_CONTACT_URL)
+                .thenReturn()
+                ;
     }
 }
